@@ -28,7 +28,7 @@ To Succesfully run the __AWS IoT Zero Touch Demo__ you will need the following G
  
 #### Required Tools
 To Succesfully run the __AWS IoT Zero Touch Demo__ you will need the following tools
-- [Microchip's AWS IoT Zero Touch Development Platform]()
+- [Microchip's AWS IoT Zero Touch Development Platform](http://preview.atmel.com/tools/AT88CKECC-AWS-XSTK.aspx)
 - [Microchip's AWS IoT Zero Touch Development Platform FW](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/tree/master/software/AWS-IoT-Zero-Touch-FW)
 
 ---
