@@ -17,6 +17,9 @@ This solution requires multiple hardware and software elements:
 
 The development kit ships with all firmware pieces pre-programmed. The source code is available [here](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/tree/master/software/AWS-IoT-Zero-Touch-FW)
 
+A step by step user guide is available on the [Wiki](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/wiki)
+
+
 For more information on the current Microchip IoT demos please go to [Microchip's IoT Page](http://www.microchip.com/iot).
 
 ---
@@ -28,6 +31,4 @@ We have build and tested the IoT Zero Touch Application on the following OS's:
 - __Linux:__ Debian Based - Ubuntu 14.04LTS
 - __Windows:__ Windows 7
 
----
 
-__For more information go to [Wiki](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/wiki)__
