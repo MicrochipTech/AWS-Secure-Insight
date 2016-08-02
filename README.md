@@ -33,4 +33,4 @@ To Succesfully run the __AWS IoT Zero Touch Demo__ you will need the following t
 
 ---
 
-__For More Information go to Wiki__
+__For more information go to Wiki__
