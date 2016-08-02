@@ -22,3 +22,13 @@ We have build and tested the IoT Zero Touch Application on the following OS's:
 - __Linux:__ Debian Based - Ubuntu 14.04LTS
 - __Windows:__ Windows 7
 
+#### Application Requirements 
+To Succesfully run the __AWS IoT Zero Touch Demo__ you will need the following GUI
+- [Microchip's AWS IoT Zero Touch GUI](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/tree/master/software/AWS-IoT-Zero-Touch-GUI)
+ 
+#### Required Tools
+To Succesfully run the __AWS IoT Zero Touch Demo__ you will need the following tools
+- [Microchip's AWS IoT Zero Touch Development Platform]()
+- [Microchip's AWS IoT Zero Touch Development Platform FW](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/tree/master/software/AWS-IoT-Zero-Touch-FW)
+
+---
