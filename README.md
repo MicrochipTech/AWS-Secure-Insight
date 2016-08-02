@@ -4,12 +4,14 @@
 ---
 
 ### Introduction
-[AWS IoT](http://aws.amazon.com/iot/) is a service that will allow internet of things (IoT) devices to be easily and securely connected to Amazon Web Services (AWS).  The __AWS-IoT-Zero-Touch__ desktop application has been designed to work with this service via the shadow registers in AWS IoT to control Microchip's IoT demo.
+[AWS IoT](http://aws.amazon.com/iot/) is a service that will allow internet of things (IoT) devices to be easily and securely connected to Amazon Web Services (AWS).  The Microchip __AWS-IoT-Zero-Touch__ solution provides the following key features:
 
-Security for AWS IoT is provided by Microchip's __ATECC508A CryptoAuthentication__ devices. ATECC508A provides an easy solution to bring __Hardware Security__ by stablishing itself as a Secure Hardware Trust Anchor for the IoT End Node. With the capability of managing Private Keys Securely (Private Keys never leave ECC508A), the use of ECDSA for Signing and Verifying and ECDH to create a pre-master key, ECC508A stands as a strong solution for cloud computing and IoT based systems.
+1. Secure the communication of any AWS IoT node regardless of the Microcontroller or Processor used
+2. Accelerate the cryptographic algorithms of the TLS (Transport Layer Security) layer and secure them in a Trusted Execution Environment
+3. Remove all need to manipulate or generate keys and certificates. Essentially makes the manufacturing of AWS IoT end nodes "Zero Touch" from a security viewpoint.
 
 Currently this demo is designed to work with the following demos:
-- [Microchip AWS IoT Zero Touch Powered By AWS](https://github.com/MicrochipTech/aws-iot-firmware-pic32mz)
+- [Microchip AWS IoT Zero Touch](https://github.com/MicrochipTech/aws-iot-firmware-pic32mz)
 
 For more information on the current Microchip IoT demos please go to [Microchip's IoT Page](http://www.microchip.com/iot).
 
