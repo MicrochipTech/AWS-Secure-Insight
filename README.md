@@ -1,5 +1,5 @@
 ### AWS-IoT-Zero-Touch
-#### AWS JIT and Bring your Own Certificate Demo User Guide.
+#### AWS JIT and Bring your Own Certificate Demo.
 
 ---
 
@@ -32,3 +32,5 @@ To Succesfully run the __AWS IoT Zero Touch Demo__ you will need the following t
 - [Microchip's AWS IoT Zero Touch Development Platform FW](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/tree/master/software/AWS-IoT-Zero-Touch-FW)
 
 ---
+
+__For More Information go to Wiki__
