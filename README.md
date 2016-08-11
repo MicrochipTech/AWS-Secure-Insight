@@ -15,7 +15,7 @@ This solution requires multiple hardware and software elements:
 - A Secure AWS IoT end node development kit: [AT88CKECC-AWS-XSTK](http://www.atmel.com/tools/AT88CKECC-AWS-XSTK.aspx)
 - A desktop application to configure an AWS IoT development kit: [Application GUI](https://github.com/MicrochipTech/AWS-Secure-Insight/tree/master/sw)
 
-The development kit ships with all firmware pieces pre-programmed. The source code is available [here](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/tree/master/software/AWS-IoT-Zero-Touch-FW)
+The development kit ships with all firmware pieces pre-programmed. The source code is available [here](https://github.com/MicrochipTech/AWS-Secure-Insight/tree/master/sw)
 
 <b>Please read the step by step user guide first!</b>
 It is avaslable on the [Wiki](https://github.com/MicrochipTech/AWS-IoT-Zero-Touch/wiki)
