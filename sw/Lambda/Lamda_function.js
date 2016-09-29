@@ -44,46 +44,26 @@ exports.handler = function(event, context, callback)
 	certificateARN = `arn:aws:iot:${region}:${accountId}:cert/${certificateId}`;
 	
 	// Create and attach the thingPolicy
-	awsCreatePolicy();
+	awsCreateSimplePolicy();
 };
 
-function awsCreatePolicy()
+function awsCreateSimplePolicy()
 {
 	// Step 1: Create the policy
     // Policy definition
     var policy = {
-        "Version": "2012-10-17",
-        "Statement":
-        [
-            /* Connect */
-            {
-                "Effect": "Allow",
-                "Action":
-                [
-                    "iot:Connect"
-                ],
-                "Resource": `arn:aws:iot:${region}:${accountId}`
-            },
-            /* Publish, Receive */
-            {
-                "Effect": "Allow",
-                "Action":
-                [
-                    "iot:Publish",
-                    "iot:Receive"
-                ],
-                "Resource": `arn:aws:iot:${region}:${accountId}`
-            },
-            /* Subscribe */
-            {
-                "Effect": "Allow",
-                "Action":
-                [
-                    "iot:Subscribe",
-                ],
-                "Resource": `arn:aws:iot:${region}:${accountId}`
-            }
-        ]
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": [
+            "iot:*"
+          ],
+          "Resource": [
+            "*"
+          ],
+          "Effect": "Allow"
+        }
+      ]
     };
     // Create the policy
     iot.createPolicy(
