@@ -1,0 +1,43 @@
+csolt0346:software sanchezoscar$ electron-packager . --platform=darwin --arch=x64 --out=../../../packs/ --version=0.35.4 --icon=content/osx/icon.icns
+Downloading electron-v0.35.4-darwin-x64.zip
+[============================================>] 100.0% of 38.25 MB (3.82 MB/s)
+Packaging app for platform darwin x64 using electron v0.35.4
+ENOTSUP: operation not supported on socket, symlink 'Versions/Current/Headers' -> '/Volumes/G/Workspace/FollyApps/packs/Insight-darwin-x64/Insight.app/Contents/Frameworks/ReactiveCocoa.framework/Headers'
+csolt0346:software sanchezoscar$ cd..
+-bash: cd..: command not found
+csolt0346:software sanchezoscar$ ls
+config.json	content		main.js		node_modules	npm-debug.log	package.json
+csolt0346:software sanchezoscar$ cd..
+-bash: cd..: command not found
+csolt0346:software sanchezoscar$ ls
+config.json	content		main.js		node_modules	npm-debug.log	package.json
+csolt0346:software sanchezoscar$ cd ../..
+csolt0346:AWS sanchezoscar$ ls
+AWS account			Access Points			FW_Comp_temp			Thomas				aws-provisioning.zip		jit-gui
+AWS root signer hex v1.0	Apple Build			GUI_Release			Videos				aws_kit_demo			logs
+AWS-DFU-Tools			Cert View Tool			Temp Git Doc			aws-provisioning		cryptoauth-avr-kit		node-hid
+csolt0346:AWS sanchezoscar$ cd ../
+csolt0346:FollyApps sanchezoscar$ ls
+AWS	packs
+csolt0346:FollyApps sanchezoscar$ cd packs/
+csolt0346:packs sanchezoscar$ ls
+Insight-darwin-x64
+csolt0346:packs sanchezoscar$ cd Insight-darwin-x64/
+csolt0346:Insight-darwin-x64 sanchezoscar$ ls
+Insight.app		LICENSE			LICENSES.chromium.html	version
+csolt0346:Insight-darwin-x64 sanchezoscar$ electron-osx-sign Insight.app
+Sign failed:
+Command failed: codesign --sign Developer ID Application: MICROCHIP TECHNOLOGY INCORPORATED (L66JB2G4FM) --force Insight.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+Insight.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework: Resource busy
+
+csolt0346:Insight-darwin-x64 sanchezoscar$ electron-osx-sign Insight.app
+Sign failed:
+Command failed: codesign --sign Developer ID Application: MICROCHIP TECHNOLOGY INCORPORATED (L66JB2G4FM) --force Insight.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+Insight.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework: Resource busy
+
+csolt0346:Insight-darwin-x64 sanchezoscar$ electron-osx-sign Insight.app
+Sign failed:
+Command failed: codesign --sign Developer ID Application: MICROCHIP TECHNOLOGY INCORPORATED (L66JB2G4FM) --force Insight.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework
+Insight.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Electron Framework: Resource busy
+
+csolt0346:Insight-darwin-x64 sanchezoscar$ 
