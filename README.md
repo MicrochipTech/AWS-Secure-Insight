@@ -1,6 +1,6 @@
 ### AWS-IoT-Zero-Touch
 #### AWS JIT and Bring your Own Certificate Demo.
-
+##### (Eclipse Paho MQTT and WolfSSL version)
 ---
 
 ### Introduction
@@ -31,5 +31,3 @@ We have build and tested the IoT Zero Touch Application on the following OS's:
 - __OS X:__ 10.11.x
 - __Linux:__ Debian Based - Ubuntu 14.04LTS
 - __Windows:__ Windows 7 64 bit (Windows 7 32bit will be supported soon)
-
-

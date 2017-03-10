@@ -633,14 +633,16 @@
       <Value>../src/ASF/common/services/usb/udc</Value>
       <Value>../src/ASF/sam/drivers/udp</Value>
       <Value>../src/ASF/sam/drivers/rtt</Value>
-      <Value>../src/aws/wolfmqttsdk</Value>
-      <Value>../src/aws/wolfmqttsdk/wolfssl/wolfplugin/atecc508</Value>
-      <Value>../src/aws/wolfmqttsdk/wolfssl/wolfplugin/atecc508/certs</Value>
-      <Value>../src/aws/wolfmqttsdk/wolfssl/wolfplugin/atecc508/cryptoauthlib/lib</Value>
-      <Value>../src/aws/wolfmqttsdk/wolfssl</Value>
+      <Value>../src/aws/wolfssl/wolfplugin/atecc508</Value>
+      <Value>../src/aws/wolfssl/wolfplugin/atecc508/certs</Value>
+      <Value>../src/aws/wolfssl/wolfplugin/atecc508/cryptoauthlib/lib</Value>
+      <Value>../src/aws/wolfssl</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include</Value>
       <Value>../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam_cm4f</Value>
       <Value>../src/ASF/sam/drivers/rstc</Value>
+      <Value>../src/aws/paho-mqtt-embedded-c/MQTTClient-C/src</Value>
+      <Value>../src/aws/paho-mqtt-embedded-c/MQTTPacket/src</Value>
+      <Value>../src/aws/paho-mqtt-embedded-c/platform/src</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -877,28 +879,33 @@
     <Folder Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\" />
     <Folder Include="src\aws\" />
     <Folder Include="src\aws\jsonlib\" />
-    <Folder Include="src\aws\wolfmqttsdk\" />
-    <Folder Include="src\aws\wolfmqttsdk\src\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfmqtt\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\src\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\certs\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\host\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\openssl\" />
-    <Folder Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\" />
+    <Folder Include="src\aws\" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c\MQTTClient-C" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c\MQTTClient-C\src" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c\MQTTPacket" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c\platform" />
+    <Folder Include="src\aws\paho-mqtt-embedded-c\platform\src" />
+    <Folder Include="src\aws\wolfssl\" />
+    <Folder Include="src\aws\wolfssl\src\" />
+    <Folder Include="src\aws\wolfssl\wolfcrypt\" />
+    <Folder Include="src\aws\wolfssl\wolfcrypt\src\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\certs\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\host\" />
+    <Folder Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\" />
+    <Folder Include="src\aws\wolfssl\wolfssl\" />
+    <Folder Include="src\aws\wolfssl\wolfssl\openssl\" />
+    <Folder Include="src\aws\wolfssl\wolfssl\wolfcrypt\" />
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
@@ -1760,394 +1767,448 @@
     <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\timers.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\src\mqtt_client.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTClient-C\src\MQTTClient.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\src\mqtt_packet.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTClient-C\src\MQTTClient.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\src\mqtt_socket.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTConnect.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfmqtt\mqtt_client.h">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTConnectClient.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfmqtt\mqtt_packet.h">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTConnectServer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfmqtt\mqtt_socket.h">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTDeserializePublish.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfmqtt\mqtt_types.h">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTFormat.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\certs\cert_def_1_signer.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTFormat.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\certs\cert_def_1_signer.h">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTMessage.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\certs\cert_def_2_device.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTPacket.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\certs\cert_def_2_device.h">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTPacket.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\src\internal.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTPublish.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\src\io.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTReturnCodes.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\src\keys.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTSerializePublish.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\src\ssl.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTSubscribe.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\src\tls.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTSubscribeClient.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\aes.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTSubscribeServer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\asn.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTUnsubscribe.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\coding.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTUnsubscribeClient.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\compress.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\MQTTUnsubscribeServer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\des3.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\MQTTPacket\src\StackTrace.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\dh.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\platform\src\network_interface.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\ecc.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\platform\src\network_interface.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\error.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\platform\src\timer_interface.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\hash.c">
+    <Compile Include="src\aws\paho-mqtt-embedded-c\platform\src\timer_interface.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\hmac.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\certs\cert_def_1_signer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\integer.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\certs\cert_def_1_signer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\logging.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\certs\cert_def_2_device.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\md2.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\certs\cert_def_2_device.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\memory.c">
+    <Compile Include="src\aws\wolfssl\src\internal.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\misc.c">
+    <Compile Include="src\aws\wolfssl\src\io.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\pwdbased.c">
+    <Compile Include="src\aws\wolfssl\src\keys.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\random.c">
+    <Compile Include="src\aws\wolfssl\src\ssl.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\rsa.c">
+    <Compile Include="src\aws\wolfssl\src\tls.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\sha256.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\aes.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\sha512.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\asn.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\signature.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\coding.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\tfm.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\compress.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfcrypt\src\wc_port.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\des3.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\atecc508cb.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\dh.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\atecc508cb.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\ecc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\error.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_client.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\hash.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_client.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\hmac.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_date.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\integer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_date.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\logging.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_def.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\md2.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_def.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\memory.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_der.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\misc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_der.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\pwdbased.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_hw.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\random.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_hw.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\rsa.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_sw.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\sha256.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_sw.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\sha512.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_cfgs.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\signature.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_cfgs.h">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\tfm.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_command.c">
+    <Compile Include="src\aws\wolfssl\wolfcrypt\src\wc_port.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_command.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\atecc508cb.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_compiler.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\atecc508cb.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_device.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_device.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_client.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_devtypes.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_client.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_iface.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_date.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_iface.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_date.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_status.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_def.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_basic.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_def.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_basic.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_der.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_helpers.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_der.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_helpers.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_hw.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\cryptoauthlib.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_hw.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_sw.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_ecdsa.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atcacert\atcacert_host_sw.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_ecdsa.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_cfgs.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_rand.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_cfgs.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_rand.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_command.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha1.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_command.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha1.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_compiler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha2.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_device.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha2.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_device.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha1_routines.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_devtypes.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha1_routines.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_iface.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha2_routines.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_iface.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha2_routines.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\atca_status.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\atca_hal.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_basic.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\atca_hal.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_basic.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\hal_samg55_i2c_asf.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_helpers.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\hal_samg55_i2c_asf.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\basic\atca_helpers.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\hal_samg55_timer_asf.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\cryptoauthlib.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\host\atca_host.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\host\atca_host.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_ecdsa.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\atcatls.c">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_ecdsa.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\atcatls.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_rand.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\atcatls_cfg.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_rand.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\callbacks.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha1.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\error-ssl.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha1.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\internal.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha2.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\openssl\bn.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\atca_crypto_sw_sha2.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\openssl\ec.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha1_routines.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\openssl\ssl.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha1_routines.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\ssl.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha2_routines.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\version.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\crypto\hashes\sha2_routines.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\aes.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\atca_hal.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\asn.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\atca_hal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\asn_public.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\hal_samg55_i2c_asf.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\coding.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\hal_samg55_i2c_asf.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\compress.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\hal\hal_samg55_timer_asf.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\des3.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\host\atca_host.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\dh.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\host\atca_host.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\ecc.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\atcatls.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\error-crypt.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\atcatls.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\hash.h">
+    <Compile Include="src\aws\wolfssl\wolfplugin\atecc508\cryptoauthlib\lib\tls\atcatls_cfg.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\hmac.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\callbacks.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\integer.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\error-ssl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\logging.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\internal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\md2.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\openssl\bn.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\memory.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\openssl\ec.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\misc.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\openssl\ssl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\mpi_class.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\ssl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\mpi_superclass.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\version.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\pwdbased.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\aes.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\random.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\asn.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\rsa.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\asn_public.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\settings.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\coding.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\sha256.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\compress.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\sha512.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\des3.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\signature.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\dh.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\tfm.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\ecc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\types.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\error-crypt.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\visibility.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\hash.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws\wolfmqttsdk\wolfssl\wolfssl\wolfcrypt\wc_port.h">
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\hmac.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\integer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\logging.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\md2.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\memory.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\misc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\mpi_class.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\mpi_superclass.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\pwdbased.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\random.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\rsa.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\settings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\sha256.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\sha512.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\signature.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\tfm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\visibility.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\aws\wolfssl\wolfssl\wolfcrypt\wc_port.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\aws\jsonlib\parson.c">
@@ -2165,22 +2226,16 @@
     <Compile Include="src\aws_kit_debug.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws_kit_timer.c">
+    <Compile Include="src\aws_kit_object.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\aws_kit_timer.h">
+    <Compile Include="src\aws_kit_object.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\aws_net_interface.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\aws_net_interface.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\aws_kit_object.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\aws_kit_object.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\aws_user_task.h">

@@ -115,8 +115,8 @@ void aws_user_sw0_cb(uint32_t id, uint32_t mask)
 	kit->pushButtonState = AWS_BUTTON_PRESSED;
 	ioport_set_pin_level(LED_0_PIN, LED_0_ACTIVE);
 
-	aws_kit_init_timer(&kit->resetISR);
-	aws_kit_countdown_sec(&kit->resetISR, AWS_USER_RESET_TIMEOUT_SEC);
+	TimerInit(&kit->resetISR);
+	TimerCountdown(&kit->resetISR, AWS_USER_RESET_TIMEOUT_SEC);
 }
 
 /**
@@ -148,13 +148,13 @@ void aws_user_oled1_button_cb(uint32_t id, uint32_t mask)
 		return;
 
 	/* Check for debounce issue. */
-	if (!(aws_kit_timer_expired(&kit->buttonISR)) && (buttonId == prevButtonId)) {
-		aws_kit_init_timer(&kit->buttonISR);
-		aws_kit_countdown_ms(&kit->buttonISR, 900);
+	if (!(TimerIsExpired(&kit->buttonISR)) && (buttonId == prevButtonId)) {
+		TimerInit(&kit->buttonISR);
+		TimerCountdownMS(&kit->buttonISR, 900);
 		return;
 	} else {
-		aws_kit_init_timer(&kit->buttonISR);
-		aws_kit_countdown_ms(&kit->buttonISR, 900);
+		TimerInit(&kit->buttonISR);
+		TimerCountdownMS(&kit->buttonISR, 900);
 	}
 
 	/* Queue the button ID pressed by a user. */
@@ -240,8 +240,8 @@ void aws_user_oled1_init(void)
  */
 void aws_user_exception_init_timer(t_aws_kit* kit)
 {
-	aws_kit_init_timer(&kit->exceptionTimer);
-	aws_kit_countdown_sec(&kit->exceptionTimer, AWS_USER_ERROR_TIMEOUT_SEC);
+	TimerInit(&kit->exceptionTimer);
+	TimerCountdown(&kit->exceptionTimer, AWS_USER_ERROR_TIMEOUT_SEC);
 }
 
 /**
@@ -258,7 +258,7 @@ void aws_user_exception_blink_led(t_aws_kit* kit)
 		return;
 
 	/* Don't blink, if the timer is not expired. */
-	if (!aws_kit_timer_expired(&kit->exceptionTimer))
+	if (!TimerIsExpired(&kit->exceptionTimer))
 		return;
 
 	/* Toggle IOPORT pin corresponding to exception state. */
@@ -274,8 +274,8 @@ void aws_user_exception_blink_led(t_aws_kit* kit)
 	}
 
 	/* Initialze a exception timer, and then count down the timer. */
-	aws_kit_init_timer(&kit->exceptionTimer);
-	aws_kit_countdown_sec(&kit->exceptionTimer, AWS_USER_ERROR_TIMEOUT_SEC);
+	TimerInit(&kit->exceptionTimer);
+	TimerCountdown(&kit->exceptionTimer, AWS_USER_ERROR_TIMEOUT_SEC);
 }
 
 /**
@@ -312,14 +312,14 @@ void aws_user_task(void* params)
 		/* If a user presses the SW0 button for 3 seconds, then reset all user data including WIFI credential, host address, etc. */ 
 		if (kit->pushButtonState == AWS_BUTTON_PRESSED) {
 			if (ioport_get_pin_level(BUTTON_0_PIN) == BUTTON_0_ACTIVE) {
-				if (aws_kit_timer_expired(&kit->resetISR)) {
+				if (TimerIsExpired(&kit->resetISR)) {
 					/* Turn on all LEDs to notify reboot. */
 					kit->pushButtonState = AWS_BUTTON_RELEASED;
 					ioport_set_pin_level(LED_0_PIN, LED_0_INACTIVE);
 					ioport_set_pin_level(OLED1_LED1_PIN, LED_0_ACTIVE);
 					ioport_set_pin_level(OLED1_LED2_PIN, LED_0_ACTIVE);
 					ioport_set_pin_level(OLED1_LED3_PIN, LED_0_ACTIVE);
-					aws_kit_init_timer(&kit->resetISR);
+					TimerInit(&kit->resetISR);
 					ret = aws_main_reset_user_data(kit);
 					if (ret != ATCA_SUCCESS) {
 						AWS_ERROR("Failed to reset user data!(%d)", ret);
@@ -332,7 +332,7 @@ void aws_user_task(void* params)
 			} else {
 				kit->pushButtonState = AWS_BUTTON_RELEASED;
 				ioport_set_pin_level(LED_0_PIN, LED_0_INACTIVE);
-				aws_kit_init_timer(&kit->resetISR);
+				TimerInit(&kit->resetISR);
 			}
 		}
 

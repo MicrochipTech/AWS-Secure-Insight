@@ -54,7 +54,7 @@
 /** 
  * \brief version of development kit firmware that contains AES132 and SHA204 library.
  */
-const char VersionKit[] = {1, 0, 8};		//!< AWS kit version
+const char VersionKit[] = {1, 1, 9};		//!< AWS kit version
 const char VersionSha204[] = {1, 3, 0};		//!< SHA204 version
 const char VersionAes132[] = {1, 1, 0};		//!< AES132 version
 const char VersionEcc508[] = {1, 1, 0};		//!< ECC108 string

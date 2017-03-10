@@ -2,7 +2,7 @@
  *
  * \file
  *
- * \brief AWS IoT Demo kit.
+ * \brief Platform timer interface
  *
  * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
@@ -42,66 +42,53 @@
  *
  */
 
-#ifndef AWS_CLIENT_TASK_H_
-#define AWS_CLIENT_TASK_H_
+#ifndef MQTT_TIMER_INTERFACE_H_INCLUDED
+#define MQTT_TIMER_INTERFACE_H_INCLUDED
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <sys/types.h>
+#include <sys/time.h>
 
-#include <wolfssl/ssl.h>
-#include <wolfssl/internal.h>
-
-#include "aws_kit_object.h"
 
 /**
- * \defgroup Client Task Definition
+ * \defgroup Real-time Timer Definition
  *
  * @{
  */
+ 
+#define	timeradd(tvp, uvp, vvp)								\
+	do {													\
+		(vvp)->tv_sec = (tvp)->tv_sec + (uvp)->tv_sec;		\
+		(vvp)->tv_usec = (tvp)->tv_usec + (uvp)->tv_usec;	\
+		if ((vvp)->tv_usec >= 1000000) {					\
+			(vvp)->tv_sec++;								\
+			(vvp)->tv_usec -= 1000000;						\
+		}													\
+	} while (0)
+#define	timersub(tvp, uvp, vvp)								\
+	do {													\
+		(vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec;		\
+		(vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec;	\
+		if ((vvp)->tv_usec < 0) {							\
+			(vvp)->tv_sec--;								\
+			(vvp)->tv_usec += 1000000;						\
+		}													\
+	} while (0)
 
-/** \name Main Task configuration
-   @{ */
-#define AWS_CLIENT_TASK_PRIORITY				(tskIDLE_PRIORITY + 2)
-#define AWS_CLIENT_TASK_DELAY					(100 / portTICK_RATE_MS)
-#define AWS_CLIENT_TASK_STACK_SIZE				(5120)
-/** @} */
 
-/** \name Definition for timer interval of MQTT subscriber, MQTT message max length
-   @{ */
-#define AWS_MQTT_CMD_TIMEOUT_MS					(2000)
-#define AWS_MQTT_PAYLOAD_MAX					(128)
-/** @} */
+typedef struct mqtt_timer {
+	struct timeval end_time;
+} Timer;
 
 
-typedef int (*MqttTlsCb)(struct t_aws_kit *kit);
+void configure_rtt(void);
+int _gettimeofday(struct timeval* tv, void* tzvp);
 
-
-int aws_client_mqtt_packet_id(void);
-bool aws_client_scan_button(t_aws_kit *kit);
-
-int aws_client_init_mqtt_client(t_aws_kit *kit);
-
-int aws_client_mqtt_connect(t_aws_kit* kit, const char *host, uint16_t port, 
-							int timeout_ms, MqttTlsCb cb);
-int aws_client_mqtt_disconnect(t_aws_kit* kit);
-
-int aws_client_tls_receive(WOLFSSL* ssl, char *buf, int sz, void *ptr);
-int aws_client_tls_send(WOLFSSL* ssl, char *buf, int sz, void *ptr);
-int aws_client_net_tls_cb(t_aws_kit* kit);					
-
-int aws_client_mqtt_subscribe(t_aws_kit* kit);
-int aws_client_mqtt_publish(t_aws_kit* kit);
-void aws_client_mqtt_message_cb(MessageData* data);
-
-int aws_client_mqtt_wait_msg(t_aws_kit* kit);
-void aws_client_state_machine(t_aws_kit* kit);
-void aws_client_task(void *params);
+void TimerInit(Timer *timer);
+char TimerIsExpired(Timer *timer);
+void TimerCountdownMS(Timer *timer, unsigned int timeout_ms);
+void TimerCountdown(Timer *timer, unsigned int timeout);
+int TimerLeftMS(Timer *timer);
 
 /** @} */
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* AWS_CLIENT_TASK_H_ */
+#endif // MQTT_TIMER_INTERFACE_H_INCLUDED

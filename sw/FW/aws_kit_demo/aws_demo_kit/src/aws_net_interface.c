@@ -55,7 +55,6 @@ static SOCKET gNtpSocket = -1;
 static t_time_date curr_time_date;
 static time_t gSecSince1900 = 0;
 static uint8_t ntp_dns_address[HOSTNAME_MAX_SIZE];
-static uint8_t *tlsSocketBuf = NULL;
 static uint32_t hostAddress = 0;
 tstrSocketRecvMsg *pstrRecv = NULL;
 
@@ -194,7 +193,7 @@ int aws_net_init_wifi(t_aws_kit* kit, int timeout_sec)
 		}
 
 		/* Initialize socket module. */
-		socketInit();
+		network_socket_init();
 
 		/* Connect to router. */
 		ret = m2m_wifi_connect((char *)kit->user.ssid, kit->user.ssidLen, MAIN_WLAN_AUTH, 
@@ -204,11 +203,11 @@ int aws_net_init_wifi(t_aws_kit* kit, int timeout_sec)
 			ret = AWS_E_WIFI_CONN_FAILURE;
 		}
 
-		aws_kit_init_timer(&wifiTimer);
-		aws_kit_countdown_sec(&wifiTimer, timeout_sec);
+		TimerInit(&wifiTimer);
+		TimerCountdown(&wifiTimer, timeout_sec);
 		/* Monitor connection state until input time. */
 		while (aws_net_get_wifi_status() != M2M_WIFI_CONNECTED) {
-			if(aws_kit_timer_expired(&wifiTimer)) {
+			if(TimerIsExpired(&wifiTimer)) {
 				ret = AWS_E_WIFI_CONN_TIMEOUT;
 				AWS_ERROR("Expired WIFI connection time!(%d)", ret);
 				return ret;
@@ -482,10 +481,10 @@ int aws_net_get_ntp_time(uint32_t timeout_ms)
 		return AWS_E_NET_SOCKET_INVALID;        
 	}
 
-	aws_kit_init_timer(&ntpTimer);
-	aws_kit_countdown_ms(&ntpTimer, timeout_ms);
+	TimerInit(&ntpTimer);
+	TimerCountdownMS(&ntpTimer, timeout_ms);
 	while (!GET_NTP_SOCKET_STATUS(NTP_SOCKET_STATUS_RECEIVE_FROM)) {
-		if(aws_kit_timer_expired(&ntpTimer)) {
+		if(TimerIsExpired(&ntpTimer)) {
 			close(ntp_socket);
 			AWS_ERROR("Expired connection time!(%d)", ret);
 			return AWS_E_NET_SOCKET_TIMEOUT;
@@ -641,278 +640,6 @@ void aws_net_set_host_addr(uint32_t addr)
 {
 	hostAddress = addr;
 }
-
-/**
- * \brief Try to connect to destination address with IP and port number in timeout milliseconds.
- *
- * \param context[in]        Socket number
- * \param host[in]           Address of the broker server in string
- * \param port[in]           Should be 8883 which means TLS port in general
- * \param timeout_ms[in]     IP address
- * \return AWS_E_SUCCESS     On success
- */
-int aws_net_connect_cb(void* context, const char* host, uint16_t port, int timeout_ms)
-{
-	int ret = AWS_E_SUCCESS;
-	Timer conTimer;
-	struct sockaddr_in dest_addr;
-	SOCKET* sock = (SOCKET*)context;
-
-	registerSocketCallback(aws_net_socket_cb, aws_net_dns_resolve_cb);
-	delay_ms(50);
-	gethostbyname((uint8*)host);
-	aws_kit_init_timer(&conTimer);
-	aws_kit_countdown_ms(&conTimer, timeout_ms);
-	while (!aws_net_get_host_addr()) {
-		if(aws_kit_timer_expired(&conTimer)) {
-			ret = AWS_E_NET_DNS_TIMEOUT;
-			AWS_ERROR("Expired DNS timer!(%d)", ret);
-			return ret;
-		}		
-		m2m_wifi_handle_events(NULL);
-	}
-
-	*sock = socket(AF_INET, SOCK_STREAM, 0);
-	if(*sock < 0) {
-		return AWS_E_NET_SOCKET_INVALID;
-	}
-
-	dest_addr.sin_family = AF_INET;
-	dest_addr.sin_addr.s_addr = aws_net_get_host_addr();
-	dest_addr.sin_port = _htons(port);
-	aws_net_set_host_addr(0);
-	ret = connect(*sock, (struct sockaddr *) &dest_addr, sizeof(struct sockaddr));
-	if (ret != SOCK_ERR_NO_ERROR) {
-		close(*sock);
-		AWS_ERROR("Failed to connect to host!(%d)(%x)", ret, (unsigned int)dest_addr.sin_addr.s_addr);
-		return AWS_E_NET_CONN_FAILURE;
-	}
-
-	aws_kit_init_timer(&conTimer);
-	aws_kit_countdown_ms(&conTimer, timeout_ms);
-	while (!GET_SOCKET_STATUS(SOCKET_STATUS_CONNECT)) {
-		if(aws_kit_timer_expired(&conTimer)) {
-			ret = AWS_E_NET_CONN_TIMEOUT;
-			AWS_ERROR("Expired connection timer!(%d)", ret);
-			return ret;
-		}
-		m2m_wifi_handle_events(NULL);
-	}		
-
-	return ret;
-}
-
-/**
- * \brief This function registers a send callback for WolfSSL to write output data to TCP buffer.
- *
- * \param ssl[in]            For convenience
- * \param ctx[in]            Pointer to the SSL context
- * \param packet[in]         Output buffer to write
- * \param sz[in]             Length of packet
- * \param timeout_ms[in]     Timeout for waiting
- * \return size              Length written
- */
-int aws_net_send_packet_cb(WOLFSSL* ssl, void* ctx, const byte* packet, int sz, int timeout_ms)
-{
-	int sent = 0, count = 0;
-	SOCKET* sock = (SOCKET*)ctx;
-	Timer waitTimer;
-	t_aws_kit* kit = aws_kit_get_instance();
-
-#ifdef AWS_KIT_DEBUG
-	AWS_INFO("aws_net_send_packet_cb = %d, %d, %d, %d", timeout_ms, sz, ssl->options.processReply, ssl->options.handShakeState);
-#endif
-	while (count < sz) {
-
-		/* Write input all packet to TCP socket buffer. */
-		sent = ((sz - count) > MAIN_WIFI_M2M_BUFFER_SIZE) ? MAIN_WIFI_M2M_BUFFER_SIZE : sz;
-		if (send(*sock, (void*)&packet[count], sent, ssl->wflags) < 0) {
-			AWS_ERROR("Failed to send packet!");
-			return WOLFSSL_CBIO_ERR_CONN_CLOSE;
-		}
-
-		aws_kit_init_timer(&waitTimer);
-		aws_kit_countdown_ms(&waitTimer, timeout_ms);
-		while (!GET_SOCKET_STATUS(SOCKET_STATUS_SEND) && !(kit->nonBlocking)) {
-			if(aws_kit_timer_expired(&waitTimer)) {
-				AWS_INFO("Expired MQTT waiting timer to send!");
-				DISABLE_SOCKET_STATUS(SOCKET_STATUS_SEND);
-				return WOLFSSL_CBIO_ERR_TIMEOUT;
-			}
-			m2m_wifi_handle_events(NULL);
-		}
-
-		DISABLE_SOCKET_STATUS(SOCKET_STATUS_SEND);
-		count += sent;
-	}
-
-#ifdef AWS_KIT_DEBUG
-	atcab_printbin_label((const uint8_t*)"SENT PACKET\r\n", (uint8_t*)packet, sz);
-#endif
-    return count;
-}
-
-/**
- * \brief This function registers a receive callback for WolfSSL to get input data from TCP buffer.
- *
- * \param ssl[in]            For convenience
- * \param ctx[in]            Pointer to the SSL context
- * \param packet[out]        Output buffer for WolfSSL to interpret TLS packet
- * \param sz[in]             Length of packet
- * \param timeout_ms[in]     Timeout for waiting
- * \return IO error          In case less than zero
- */
-int aws_net_receive_packet_cb(WOLFSSL* ssl, void* ctx, byte* packet, int sz, int timeout_ms)
-{
-    int i = sz, totalLen = 0, bodyLen = 0, read_count = 0, left_size = 0, copy_count = 0;
-	SOCKET* sock = (SOCKET*)ctx;
-	Timer waitTimer;
-	t_aws_kit* kit = aws_kit_get_instance();
-
-#ifdef AWS_KIT_DEBUG
-	AWS_INFO("aws_net_receive_packet_cb = %d, %d, %d, %d", timeout_ms, sz, ssl->options.processReply, ssl->options.handShakeState);
-#endif
-	if (ssl->options.connectState == CLIENT_HELLO_SENT) {
-		if (ssl->options.processReply == 0 ) {
-			tlsSocketBuf = (uint8_t*)malloc(MAIN_WIFI_M2M_BUFFER_SIZE * 3);
-			if (tlsSocketBuf == NULL) {
-				AWS_ERROR("Failed to allocate socket heap!\r\n");
-				return WOLFSSL_CBIO_ERR_GENERAL;
-			}
-
-			if (recv(*sock, tlsSocketBuf, MAIN_WIFI_M2M_BUFFER_SIZE, ssl->rflags)) {
-				AWS_ERROR("Failed to receive packet!");
-				return WOLFSSL_CBIO_ERR_CONN_CLOSE;
-			}
-
-			while (!GET_SOCKET_STATUS(SOCKET_STATUS_RECEIVE)) {
-				m2m_wifi_handle_events(NULL);
-			}
-			DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-
-			bodyLen = (tlsSocketBuf[3] << 8) | (tlsSocketBuf[4]);
-			totalLen = bodyLen + RECORD_HEADER_SZ;
-
-			read_count = totalLen / pstrRecv->s16BufferSize;
-			left_size = totalLen % pstrRecv->s16BufferSize;
-			copy_count = 1 * pstrRecv->s16BufferSize;
-
-			while (read_count > 0) {
-				if (read_count == 1) {
-					if (recv(*sock, tlsSocketBuf + copy_count, MAIN_WIFI_M2M_BUFFER_SIZE, ssl->rflags)) {
-						AWS_ERROR("Failed to receive packet!");
-						return WOLFSSL_CBIO_ERR_CONN_CLOSE;
-					}
-
-					while (!GET_SOCKET_STATUS(SOCKET_STATUS_RECEIVE)) {
-						m2m_wifi_handle_events(NULL);
-					}
-					DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-					copy_count += left_size;
-				} else {
-					if (recv(*sock, tlsSocketBuf + copy_count, MAIN_WIFI_M2M_BUFFER_SIZE, ssl->rflags)) {
-						AWS_ERROR("Failed to receive packet!");
-						return WOLFSSL_CBIO_ERR_CONN_CLOSE;
-					}
-
-					while (!GET_SOCKET_STATUS(SOCKET_STATUS_RECEIVE)) {
-						m2m_wifi_handle_events(NULL);
-					}
-					DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-					copy_count += pstrRecv->s16BufferSize;
-				}
-				--read_count;
-			}
-			memcpy(packet, &tlsSocketBuf[0], sz);
-		} else {
-			memcpy(packet, &tlsSocketBuf[RECORD_HEADER_SZ], sz);
-			if (tlsSocketBuf) {			
-				free(tlsSocketBuf);
-				tlsSocketBuf = NULL;
-			}
-		}
-	} else if (ssl->options.connectState == FINISHED_DONE) {
-		if (ssl->options.processReply == 0 ) {
-			if (ssl->curRL.type == 22) {
-				tlsSocketBuf = (uint8_t*)malloc(MAIN_WIFI_M2M_BUFFER_SIZE * 3);
-				if (tlsSocketBuf == NULL) {
-					AWS_ERROR("Failed to allocate heap!");
-					return WOLFSSL_CBIO_ERR_GENERAL;
-				}
-
-				if (recv(*sock, tlsSocketBuf, MAIN_WIFI_M2M_BUFFER_SIZE, ssl->rflags)) {
-					AWS_ERROR("Failed to receive packet!");
-					return WOLFSSL_CBIO_ERR_CONN_CLOSE;
-				}
-
-				while (!GET_SOCKET_STATUS(SOCKET_STATUS_RECEIVE)) {
-					m2m_wifi_handle_events(NULL);
-				}
-				DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-				memcpy(packet, &tlsSocketBuf[0], sz);
-
-			} else {
-				memcpy(packet, &tlsSocketBuf[RECORD_HEADER_SZ + 1], sz);
-			}
-
-		} else {
-
-			if (ssl->curRL.type == 20) {
-				memcpy(packet, &tlsSocketBuf[RECORD_HEADER_SZ], sz);
-			} else {
-				memcpy(packet, &tlsSocketBuf[RECORD_HEADER_SZ * 2 + 1], sz);
-				if (tlsSocketBuf) {			
-					free(tlsSocketBuf);
-					tlsSocketBuf = NULL;
-				}
-			}
-		}
-	} else {
-		if (ssl->options.processReply == 0 ) {
-			tlsSocketBuf = (uint8_t*)malloc(MAIN_WIFI_M2M_BUFFER_SIZE);
-			if (tlsSocketBuf == NULL) {
-				AWS_ERROR("Failed to allocate heap!");
-				return WOLFSSL_CBIO_ERR_GENERAL;
-			}
-
-			if (recv(*sock, tlsSocketBuf, MAIN_WIFI_M2M_BUFFER_SIZE, ssl->rflags)) {
-				AWS_ERROR("Failed to receive packet!");
-				return WOLFSSL_CBIO_ERR_CONN_CLOSE;
-			}
-
-			aws_kit_init_timer(&waitTimer);
-			if (kit->clientState == CLIENT_STATE_MQTT_WAIT_MESSAGE)
-				aws_kit_countdown_ms(&waitTimer, AWS_NET_SUBSCRIBE_TIMEOUT_MS);
-			else
-				aws_kit_countdown_ms(&waitTimer, timeout_ms);
-			while (!GET_SOCKET_STATUS(SOCKET_STATUS_RECEIVE)) {
-				if(aws_kit_timer_expired(&waitTimer) && !kit->blocking) {
-					AWS_INFO("Expired MQTT waiting timer to receive!");
-					DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-					if (tlsSocketBuf) {			
-						free(tlsSocketBuf);
-						tlsSocketBuf = NULL;
-					}
-					return 0;
-				}
-				m2m_wifi_handle_events(NULL);
-			}
-			DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-			memcpy(packet, &tlsSocketBuf[0], sz);
-
-		} else {
-			memcpy(packet, &tlsSocketBuf[RECORD_HEADER_SZ], sz);
-			if (tlsSocketBuf) {			
-				free(tlsSocketBuf);
-				tlsSocketBuf = NULL;
-			}
-		}
-	}
-#ifdef AWS_KIT_DEBUG
-    atcab_printbin_label((const uint8_t*)"RECEIVED PACKET\r\n", (uint8_t*)packet, sz);
-#endif
-    return i;
-}	
 
 int aws_net_disconnect_cb(void* ctx)
 {

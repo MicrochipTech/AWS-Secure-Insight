@@ -2,7 +2,7 @@
  *
  * \file
  *
- * \brief AWS IoT Demo kit.
+ * \brief Platform network interface
  *
  * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
@@ -42,66 +42,29 @@
  *
  */
 
-#ifndef AWS_CLIENT_TASK_H_
-#define AWS_CLIENT_TASK_H_
+#ifndef MQTT_NETWORK_INTERFACE_H_INCLUDED
+#define MQTT_NETWORK_INTERFACE_H_INCLUDED
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <stdint.h>
 
-#include <wolfssl/ssl.h>
-#include <wolfssl/internal.h>
-
-#include "aws_kit_object.h"
-
-/**
- * \defgroup Client Task Definition
- *
- * @{
- */
-
-/** \name Main Task configuration
-   @{ */
-#define AWS_CLIENT_TASK_PRIORITY				(tskIDLE_PRIORITY + 2)
-#define AWS_CLIENT_TASK_DELAY					(100 / portTICK_RATE_MS)
-#define AWS_CLIENT_TASK_STACK_SIZE				(5120)
-/** @} */
-
-/** \name Definition for timer interval of MQTT subscriber, MQTT message max length
-   @{ */
-#define AWS_MQTT_CMD_TIMEOUT_MS					(2000)
-#define AWS_MQTT_PAYLOAD_MAX					(128)
-/** @} */
+#include "socket/include/socket.h"
 
 
-typedef int (*MqttTlsCb)(struct t_aws_kit *kit);
+typedef struct mqtt_network {
+	int (*mqttread)(struct mqtt_network *network, unsigned char *read_buffer, int length, int timeout_ms);
+	int (*mqttwrite)(struct mqtt_network *network, unsigned char *send_buffer, int length, int timeout_ms);
+} Network;
 
 
-int aws_client_mqtt_packet_id(void);
-bool aws_client_scan_button(t_aws_kit *kit);
+int mqtt_packet_read(Network *network, unsigned char *read_buffer, int length, int timeout_ms);
+int mqtt_packet_write(Network *network, unsigned char *send_buffer, int length, int timeout_ms);
 
-int aws_client_init_mqtt_client(t_aws_kit *kit);
 
-int aws_client_mqtt_connect(t_aws_kit* kit, const char *host, uint16_t port, 
-							int timeout_ms, MqttTlsCb cb);
-int aws_client_mqtt_disconnect(t_aws_kit* kit);
+void network_socket_init(void);
+int network_socket_connect(SOCKET *network_socket, uint32_t address, uint16_t port, int timeout_ms);
+int network_socket_disconnect(SOCKET *network_socket);
 
-int aws_client_tls_receive(WOLFSSL* ssl, char *buf, int sz, void *ptr);
-int aws_client_tls_send(WOLFSSL* ssl, char *buf, int sz, void *ptr);
-int aws_client_net_tls_cb(t_aws_kit* kit);					
+int network_socket_read(SOCKET *socket, unsigned char *read_buffer, int length, int flags, int timeout_ms);
+int network_socket_write(SOCKET *socket, unsigned char *send_buffer, int length, int flags, int timeout_ms);
 
-int aws_client_mqtt_subscribe(t_aws_kit* kit);
-int aws_client_mqtt_publish(t_aws_kit* kit);
-void aws_client_mqtt_message_cb(MessageData* data);
-
-int aws_client_mqtt_wait_msg(t_aws_kit* kit);
-void aws_client_state_machine(t_aws_kit* kit);
-void aws_client_task(void *params);
-
-/** @} */
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* AWS_CLIENT_TASK_H_ */
+#endif // MQTT_NETWORK_INTERFACE_H_INCLUDED

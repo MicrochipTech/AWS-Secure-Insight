@@ -50,15 +50,18 @@ extern "C" {
 #endif
 
 #include <asf.h>
+#include <wolfssl/ssl.h>
+#include <wolfssl/internal.h>
+
 #include "aws_kit_debug.h"
-#include "aws_kit_timer.h"
-#include "wolfmqtt/mqtt_client.h"
-#include "wolfmqtt/mqtt_socket.h"
+#include "MQTTClient.h"
+
+
 
 /**
  * \defgroup AWS Kit Definition
  *
- * \brief All data definition & structure are to comply with constraints of AWS IoT, WolfSSL & WolfMQTT 
+ * \brief All data definition & structure are to comply with constraints of AWS IoT, WolfSSL & Paho MQTT 
  * specification and certificate architecture of CryptoAuthLib.
  *
  * @{
@@ -198,7 +201,7 @@ typedef struct AWS_USER_DATA {
 } t_awsUserData;
 
 /**
- * Defines MQTT buffers to be used by WolfMQTT.
+ * Defines MQTT buffers to be used by Paho MQTT.
  */
 typedef struct AWS_MQTT_BUFFER {
 	uint8_t mqttTxBuf[AWS_MQTT_BUF_SIZE_MAX];
@@ -238,6 +241,14 @@ typedef struct AWS_BUTTON_STATE {
 } t_awsButtonState;
 
 /**
+ * Defines the WolfSSL context
+ */
+typedef struct AWS_TLS {
+	WOLFSSL_CTX *context;
+	WOLFSSL *ssl;	
+} MQTTTls;
+
+/**
  * Defines all the pieces which indicate Thing based on ATSAMG55 .
  */
 typedef struct AWS_KIT {
@@ -253,7 +264,7 @@ typedef struct AWS_KIT {
 	KIT_ERROR_STATE	errState;		//!< State of exception.
 	t_awsCert cert;					//!< Storage of both Signer and device certificates.
 	t_awsUserData user;				//!< Storage of user data containing WIFI credential and so on.
-	t_awsMqttBuffer buffer;			//!< Storage for WolfMQTT to use this buffer.
+	t_awsMqttBuffer buffer;			//!< Storage for Paho MQTT to use this buffer.
 	t_awsMqttTopic topic;			//!< Storage for MQTT topics.
 	t_awsLedState led;				//!< Indicates state of LEDS in OLED1 board.
 	t_awsButtonState button;		//!< Indicates state of buttons in OLED1 board.
@@ -261,8 +272,9 @@ typedef struct AWS_KIT {
 	Timer buttonISR;				//!< Timer to solve debounce issue.
 	Timer resetISR;					//!< Reset timer to measure 3 seconds.
 	Timer exceptionTimer;			//!< Timer to notify exception.
-	MqttNet net;					//!< Indicates network callbacks of WolfMQTT.
-	MqttClient client;				//!< Indicates client of WolfMQTT.
+	MQTTClient client;              //!< Indicates client of MQTT
+	MQTTTls tls;                    //!< Indicates the WolfSSL TLS context
+	SOCKET *socket;                 //!< Indicates the network socket
 } t_aws_kit;
 
 t_aws_kit* aws_kit_get_instance(void);

@@ -59,7 +59,7 @@ extern "C" {
 #include <wolfssl/internal.h>
 #include "cryptoauthlib.h"
 #include "atcacert/atcacert_def.h"
-#include "aws_kit_timer.h"
+#include "timer_interface.h"
 #include "aws_kit_object.h"
 
 /**
@@ -113,6 +113,7 @@ extern "C" {
 #define MAIN_DEFAULT_ADDRESS					0xFFFFFFFF /* "255.255.255.255" */
 /** @} */
 
+extern uint16_t tcp_socket_status;
 extern uint16_t tls_socket_status;
 extern uint16_t tcp_ntp_socket_status;
 
@@ -149,8 +150,6 @@ typedef struct time_date {
 
 extern tstrSocketRecvMsg *pstrRecv;
 
-int _gettimeofday(struct timeval *__p, void *__tz);
-
 /** Function prototype.	*/
 const char* aws_net_get_socket_string(int msg);
 void aws_net_set_wifi_status(bool status);
@@ -171,9 +170,6 @@ int aws_net_compare_date(t_time_date* local, atcacert_tm_utc_t* cert);
 void aws_net_dns_resolve_cb(uint8_t* pu8DomainName, uint32_t u32ServerIP);
 uint32_t aws_net_get_host_addr(void);
 void aws_net_set_host_addr(uint32_t addr);
-int aws_net_connect_cb(void* context, const char* host, uint16_t port, int timeout_ms);
-int aws_net_send_packet_cb(WOLFSSL* ssl, void* ctx, const byte* packet, int sz, int timeout_ms);
-int aws_net_receive_packet_cb(WOLFSSL* ssl, void* ctx, byte* packet, int sz, int timeout_ms);
 int aws_net_disconnect_cb(void* ctx);
 
 /** @} */
